@@ -32,6 +32,10 @@ type Config struct {
 	AccessHasher ChannelAccessHasher
 	// Logger (optional).
 	Logger *zap.Logger
+	// Maximal gaps between local and remote state. Link: https://core.telegram.org/api/updates#recovering-gaps
+	//
+	// If value<=0, the official recommended values will be used.
+	DiffLimit int
 }
 
 func (cfg *Config) setDefaults() {

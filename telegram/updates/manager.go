@@ -93,9 +93,12 @@ func (m *Manager) Auth(ctx context.Context, client RawClient, userID int64, isBo
 		return err
 	}
 
-	diffLim := diffLimitUser
-	if isBot {
-		diffLim = diffLimitBot
+	diffLim := m.cfg.DiffLimit
+	if diffLim <= 0 {
+		diffLim = diffLimitUser
+		if isBot {
+			diffLim = diffLimitBot
+		}
 	}
 
 	m.state = newState(ctx, stateConfig{
